@@ -7,33 +7,38 @@ import { CenteredOverlayForm } from "./CenteredOverlayForm";
 export const CreateGroup = () => {
   const [validated, setValidated] = useState(false);
   const [groupName, setGroupName] = useRecoilState(groupNameState);
+  /*state에 데이터를 저장해야 expense에서도 이용 가능 */
+
   const handleSubmit = (event) => {
-    event.preventDefault()
-    const form = event.currentTarget
-    if (form.checkValidity()) {
-        setValidated(true)
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    if (form.checkValidity()) {    
     } else {
       event.stopPropagation();
     }
+    setValidated(true)
   };
   return (
     <div>
       <h1>DutchPay</h1>
+
       <Container>
-        <Form noValidate onSubmit={handleSubmit}>
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Row>
             <h2>먼저, 더치페이 할 그룹의 이름을 정해볼까요?</h2>
           </Row>
           <Row>
             <Form.Group controlId="vallidationGroupName">
-              <Form.control
+              <Form.Control
                 type="text"
                 required
                 placeholder="2022 제주도 여행"
+                onChange={(e) => setGroupName(e.target.value)}
               />
-              <Form.control.Feedback type="invalid">
+              <Form.Control.Feedback type="invalid">
                 그룹 이름을 입력해주세요
-              </Form.control.Feedback>
+              </Form.Control.Feedback>
             </Form.Group>
           </Row>
           <Row>
@@ -42,6 +47,7 @@ export const CreateGroup = () => {
         </Form>
       </Container>
       {/*<CenteredOverlayForm />*/}
+      
     </div>
   );
 };
