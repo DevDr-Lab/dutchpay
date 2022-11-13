@@ -3,10 +3,15 @@
 
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { RecoilRoot } from "recoil";
 import { CreateGroup } from "./CreateGroup";
 
 const renderComponent = () => {
-  render(<CreateGroup />); // 어떤 리액트 컴포넌트를 렌더링하고 싶은지 적어준다
+  render(
+    <RecoilRoot>
+      <CreateGroup />
+    </RecoilRoot>
+  ); // 어떤 리액트 컴포넌트를 렌더링하고 싶은지 적어준다
 
   // 계속 반복되는 것을 컴포넌트화
   const input = screen.getByPlaceholderText("2022 제주도 여행"); // screen은 렌더링된 화면이라고 생각하면 된다
@@ -33,10 +38,9 @@ describe("그룹생성 페이지", () => {
   });
   test("그룹이름을 입력하지 않고 저장 버튼을 클릭시 에러 메세지 노출", async () => {
     // 비동기로
-
     const { saveButton, errorMessage } = renderComponent();
+    
     await userEvent.click(saveButton); // 버튼을 눌렀을때처럼 이벤트발생
-
     expect(errorMessage).not.toBeNull();
   });
   test("그룹이름 입력 후 저장버튼 클릭시 저장 성공", async () => {
