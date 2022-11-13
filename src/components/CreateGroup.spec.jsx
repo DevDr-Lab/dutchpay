@@ -6,6 +6,7 @@ import userEvent from "@testing-library/user-event";
 import { RecoilRoot } from "recoil";
 import { CreateGroup } from "./CreateGroup";
 
+
 const renderComponent = () => {
   render(
     <RecoilRoot>
@@ -41,7 +42,7 @@ describe("그룹생성 페이지", () => {
     const { saveButton, errorMessage } = renderComponent();
     
     await userEvent.click(saveButton); // 버튼을 눌렀을때처럼 이벤트발생
-    expect(errorMessage).not.toBeNull();
+    expect(errorMessage).toHaveAttribute('data-valid', 'false');
   });
   test("그룹이름 입력 후 저장버튼 클릭시 저장 성공", async () => {
     // type, click은 비동기
@@ -50,6 +51,6 @@ describe("그룹생성 페이지", () => {
     await userEvent.type(input, "그룹명 예시");
     await userEvent.click(saveButton);
 
-    expect(errorMessage).toBeNull();
+    expect(errorMessage).toHaveAttribute('data-valid', 'true');
   });
 });
