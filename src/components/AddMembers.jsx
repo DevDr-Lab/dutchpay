@@ -25,7 +25,7 @@ export const AddMembers = () => {
     <CenteredOverlayForm 
       title={header}
       validated={validated}
-      onSubmit={handleSubmit}
+      handleSubmit={handleSubmit}
     >
       <InputTags
         data-testid="input-member-names"
